@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Student{
+typedef struct Student{
 	char name[100];
 	int diemThi;
 };
 int main(){
 	//Viết chương trình nhập vào thông tin 20 sinh viên(tên, điểm thi), sau đó sắp xếp mảng này theo thứ tự alphabet của tên sinh viên
-	struct Student sv[5];
-	char name[5][100];
+	Student sv[5];
 	printf("Nhap thong tin sinh vien \n");
 	for(int i = 0; i<5; i++){
 		printf("Nhap ten sinh vien: ");
@@ -20,10 +19,13 @@ int main(){
 	for (int i = 0; i < 5 - 1; i++) {
         for (int j = 0; j < 5-i-1; j++) {
             if (strcmp(sv[j].name, sv[j+1].name) > 0) {
-            	char tmp[100];
-                strcpy(tmp, sv[j].name);
+            	Student tmp;
+                strcpy(tmp.name, sv[j].name);
+                tmp.diemThi = sv[j].diemThi;
                 strcpy(sv[j].name, sv[j+1].name);
-                strcpy(sv[j+1].name, tmp);
+                sv[j].diemThi = sv[j+1].diemThi;
+				strcpy(sv[j+1].name, tmp.name);
+				sv[j+1].diemThi = tmp.diemThi;
             }
         }
     }
@@ -38,10 +40,13 @@ int main(){
 	for(int i=0; i<5; i++){
 		for(int j=0; j<5-i-1; j++){
 			if(sv[j].diemThi < sv[j+1].diemThi){
-				int tmp;
-				tmp = sv[j].diemThi;
+				Student tmp;
+				tmp.diemThi = sv[j].diemThi;
+				strcpy(tmp.name, sv[j].name);;
 				sv[j].diemThi = sv[j+1].diemThi;
-				sv[j+1].diemThi = tmp;
+				strcpy(sv[j].name, sv[j+1].name);
+				sv[j+1].diemThi = tmp.diemThi;
+				strcpy(sv[j+1].name, tmp.name);
 			}
 		}
 	}
